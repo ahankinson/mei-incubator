@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="../../svn/mei/trunk/schemaDevelopment/ODD/tei_odds.rng" type="xml"?>
+<TEI xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Music Encoding Initiative Guidelines</title>
+        <respStmt>
+          <resp>Authored by</resp>
+          <name xml:id="AH">Andrew Hankinson</name>
+          <name xml:id="PR">Perry Roland</name>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <p/>
+      </publicationStmt>
+      <sourceDesc>
+        <p/>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <front>
+      <divGen type="toc"/>
+    </front>
+    <body>
+      <schemaSpec ident="mei_solesmes" start="mei meihead meicorpus music" ns="http://www.music-encoding.org/ns/mei">
+        <!-- Workdesc can be added to @start when it becomes necessary to create separate work descriptions that can be referred to. -->
+        <moduleRef key="mei"/>
+        <moduleRef key="MEI.shared"/>
+        <moduleRef key="MEI.solesmes" />
+
+        <macroSpec ident="data.NEUMENAME" type="dt" module="MEI.solesmes" mode="add">
+          <desc>Neume names taken from the Liber Hymnarius, p. xii, except where the neume
+            form given in this table may be represented with a different representation, e.g.,
+            a "podatus initia debilis" may be represented as a podatus with an initial deminutae.
+          </desc>
+          <content>
+            <rng:choice>
+              <rng:value>punctum</rng:value>
+              <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+              <rng:value>virga</rng:value>
+              <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+              <rng:value>cavum</rng:value>
+              <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+              <rng:value>apostropha</rng:value>
+              <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+              <rng:value>oriscus</rng:value>
+              <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+              <rng:value>podatus</rng:value>
+              <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+              <rng:value>clivis</rng:value>
+              <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+              <rng:value>torculus</rng:value>
+              <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+              <rng:value>porrectus</rng:value>
+              <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+              <rng:value>scandicus</rng:value>
+              <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+              <rng:value>salicus</rng:value>
+              <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+            </rng:choice>
+          </content>
+        </macroSpec>
+        
+        <macroSpec ident="data.AUCTUS" type="dt" module="MEI.solesmes" mode="add">
+          <desc>Asc or desc, depending on the direction of the auctus.</desc>
+          <content>
+            <rng:choice>
+              <rng:value>asc</rng:value>
+              <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+              <rng:value>desc</rng:value>
+              <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
+            </rng:choice>
+           </content>
+        </macroSpec>
+        
+        <macroSpec ident="data.DIVISION" type="dt" module="MEI.solesmes" mode="add">
+          <desc>Types of divisions. The "comma" is included since it is in the same family.</desc>
+          <content>
+            <rng:choice>
+              <rng:value>comma</rng:value>
+              <rng:value>major</rng:value>
+              <rng:value>minor</rng:value>
+              <rng:value>small</rng:value>
+              <rng:value>final</rng:value>
+            </rng:choice>
+          </content>
+        </macroSpec>
+        
+        <macroSpec ident="data.EPISEMA" type="dt" module="MEI.solesmes" mode="add">
+          <desc>Types of episema.</desc>
+          <content>
+            <rng:choice>
+              <rng:value>horizontal</rng:value>
+              <rng:value>vertical</rng:value>
+            </rng:choice>
+          </content>
+        </macroSpec>
+        
+        <classSpec ident="att.solesmes.episema" type="atts" mode="add">
+          <desc>Episemae are stress indicators for notes.</desc>
+          <attList>
+            <attDef ident="form" usage="opt">
+              <desc></desc>
+              <datatype>
+                <rng:ref name="data.EPISEMA"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </classSpec>
+
+        <classSpec ident="att.solesmes.division" type="atts" mode="add">
+          <desc>Divisions are breath and phrasing indicators.</desc>
+          <attList>
+            <attDef ident="form" usage="opt">
+              <desc></desc>
+              <datatype>
+                <rng:ref name="data.DIVISION"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </classSpec>
+        
+
+        <classSpec ident="att.solesmes.neumes" type="atts" mode="add">
+          <attList>
+            <attDef ident="name" usage="opt">
+              <desc>A pre-determined name for this neume.</desc>
+              <datatype>
+                <rng:ref name="data.NEUMENAME"/>
+              </datatype>
+            </attDef>
+            <attDef ident="altname" usage="opt">
+              <desc>An alternate name for this neume that may not be formalized within the given options for name.</desc>
+            </attDef>
+          </attList>
+        </classSpec>
+        
+        <classSpec ident="att.solesmes.notes" type="atts" mode="add">
+          <attList>
+            <attDef ident="auc" usage="opt">
+              <desc></desc>
+              <datatype>
+                <rng:ref name="data.AUCTUS"/>
+              </datatype>
+            </attDef>
+            <attDef ident="dem" usage="opt">
+              <desc></desc>
+              <datatype>
+                <rng:ref name="data.BOOLEAN" />
+              </datatype>
+            </attDef>
+            <attDef ident="quil" usage="opt">
+              <desc></desc>
+              <datatype>
+                <rng:ref name="data.BOOLEAN" />
+              </datatype>
+            </attDef>
+          </attList>
+        </classSpec>
+        
+        <classSpec ident="att.solesmes.divisions" type="atts" mode="add">
+          <attList>
+            <attDef ident="form" usage="opt">
+              <desc></desc>
+              <datatype>
+                <rng:ref name="data.DIVISIONS" />
+              </datatype>
+            </attDef>
+          </attList>
+        </classSpec>
+        
+        <elementSpec ident="episema" module="MEI.solesmes" mode="add">
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.facsimile"/>
+            <memberOf key="att.solesmes.episema" />
+          </classes>
+        </elementSpec>
+        
+        <elementSpec ident="division" module="MEI.solesmes" mode="add">
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.facsimile"/>
+            <memberOf key="att.solesmes.division" />
+          </classes>
+        </elementSpec>
+        
+        <elementSpec ident="neume" module="MEI.solesmes" mode="add">
+          <desc>Identifies a recognized group of pitches that are known as belonging to a single group. This
+            is used instead of the earlier "ineume" and "uneume" grouping.
+            
+            Neumes may be nested, so it is possible to, for example, construct a neume from a number of
+            sub-neume components. This is useful in situations where there is no pre-determined name
+            for a given figure, i.e., compound neumes.
+            
+            As well, neume allows ligature elements as children. Ligatures may be either "recta" or "obliqua." In practice
+            most neumes are "recta" so it may be safe to omit any ligature element. However, in compound neume cases it can 
+            be useful to precisely spell out the forms that are given.
+          </desc>
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.facsimile"/>
+            
+            <memberOf key="att.solesmes.neumes" />
+          </classes>
+        </elementSpec>
+        
+        <!-- duplicating note for now -->
+        <elementSpec ident="note" module="MEI.shared" mode="replace">
+          <desc>note ― A single pitched event. (Read, p. 63) The note element is allowed to contain other events for situations where a single (usually
+            ornamented) written note is representative of a group of performed notes. The accid and artic sub-elements may be used instead of the note element's
+            attributes when accid and artic represent first-class objects, e.g., when they require attributes, such as x and y location attributes. Similarly, the
+            syl sub-element may be used instead of the syl attribute. The verse sub-element may be used to group text syllables by verse. The colored attribute
+            may be used to indicate coloration. In the mensural repertoire, coloration is a temporary change in the underlying mensuration from perfect to
+            imperfect. In the CMN repertoire, coloration is an inversion of the note head's normal rendition, that is, the notehead is void when it would
+            otherwise be filled and vice versa. Do not confuse this with visual color.</desc>
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.facsimile"/>
+            <memberOf key="att.note.log"/>
+            <memberOf key="att.note.vis"/>
+            <memberOf key="att.note.ges"/>
+            <memberOf key="att.note.anl"/>
+            <memberOf key="model.eventLike"/>
+            
+            <memberOf key="att.solesmes.notes" />
+          </classes>
+          <content>
+            <rng:zeroOrMore>
+              <rng:choice>
+                <rng:ref name="model.eventLike"/>
+                <rng:ref name="model.noteModifierLike"/>
+                <rng:ref name="model.verseLike"/>
+                <rng:ref name="model.sylLike"/>
+                <rng:ref name="model.appLike"/>
+                <rng:ref name="model.editLike"/>
+                <rng:ref name="model.transcriptionLike"/>
+              </rng:choice>
+            </rng:zeroOrMore>
+          </content>
+          <constraintSpec ident="Check_instr" scheme="isoschematron">
+            <constraint>
+              <sch:rule context="mei:note[@instr]">
+                <sch:assert test="every $i in tokenize(@instr, '\s+') satisfies
+                  $i=preceding::mei:instrdef[@xml:id]/@xml:id"/>
+              </sch:rule>
+            </constraint>
+          </constraintSpec>
+        </elementSpec>
+        
+        <!-- duplicating ligature for now -->
+        <elementSpec ident="ligature" module="MEI.shared" mode="replace">
+          <desc>ligature ― A notation symbol that combines two or more notes into a single sign. The rhythmic meaning of the components of a ligature is
+            typically contextual, not absolute; therefore, an interpretative duration may be encoded on each of the components using either the dur.ges attribute
+            or the num and numbase attribute pair. The &lt;ligature&gt; element should *not* be used for brackets in modern notation that indicate notes that were
+            part of a ligature in the original source.</desc>
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.facsimile"/>
+            <memberOf key="att.ligature.log"/>
+            <memberOf key="att.ligature.vis"/>
+            <memberOf key="att.ligature.ges"/>
+            <memberOf key="att.ligature.anl"/>
+            <memberOf key="model.eventLike.mensural"/>
+          </classes>
+          <content>
+            <rng:zeroOrMore>
+              <rng:ref name="model.layerPart"/>
+            </rng:zeroOrMore>
+          </content>
+        </elementSpec>
+      </schemaSpec>
+      
+    </body>
+  </text>
+</TEI>

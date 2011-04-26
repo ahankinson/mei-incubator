@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="../../svn/mei/trunk/schemaDevelopment/ODD/tei_odds.rng" type="xml"?>
+<TEI xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Music Encoding Initiative Guidelines</title>
+        <respStmt>
+          <resp>Authored by</resp>
+          <name xml:id="AH">Andrew Hankinson</name>
+          <name xml:id="LP">Laurent Pugin</name>
+          <name xml:id="PR">Perry Roland</name>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <p/>
+      </publicationStmt>
+      <sourceDesc>
+        <p/>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <front>
+      <divGen type="toc"/>
+    </front>
+    <body>
+      <schemaSpec ident="mei_layout" start="mei meihead meicorpus music" ns="http://www.music-encoding.org/ns/mei">
+        <!-- Workdesc can be added to @start when it becomes necessary to create separate work descriptions that can be referred to. -->
+        <moduleRef key="mei"/>
+        <moduleRef key="MEI.layout"/>
+        <moduleRef key="MEI.shared" />
+        
+        <classSpec ident="att.layout" module="MEI.layout" type="atts" mode="add">
+          <desc>Attributes that are common to all layout elements.</desc>          
+        </classSpec>
+        
+        <classSpec ident="att.layout.page" module="MEI.layout" type="atts" mode="add">
+          <desc>Attributes that are only on the page element.</desc>
+        </classSpec>
+        
+        <classSpec ident="att.layout.system" module="MEI.layout" type="atts" mode="add">
+          <desc>Attributes that are only on the system element.</desc>
+        </classSpec>
+        
+        <classSpec ident="att.layout.sb" module="MEI.layout" type="atts" mode="add">
+          <desc>Attributes that are on the sb element</desc>
+          <attList>
+            <attDef ident="systemref" usage="opt">
+              <desc>Points to a system element ID in the layout section.</desc>
+              <datatype>
+                <rng:data type="ID"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </classSpec>
+        
+        <classSpec ident="att.layout.pb" module="MEI.layout" type="atts" mode="add">
+          <desc>Attributes that are on the pb element</desc>
+          <attList>
+            <attDef ident="pageref" usage="opt">
+              <desc>Points to a page element ID in the layout section.</desc>
+              <datatype>
+                <rng:data type="ID"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </classSpec>
+        
+        <elementSpec ident="layout" module="MEI.layout" mode="add">
+          <desc>A layout element contains elements describing the physical layout of a page
+          of music.</desc>
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.layout" />
+          </classes>
+          <content>
+            <rng:optional>
+              <rng:ref name="page"/>
+            </rng:optional>
+          </content>
+        </elementSpec>
+        
+        <elementSpec ident="page" module="MEI.layout" mode="add">
+          <desc>A page element defines a physical page. Use the regular @facs pattern to 
+          describe page dimensions.</desc>
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.facsimile"/>
+            <memberOf key="att.layout" />
+            <memberOf key="att.layout.page" />
+          </classes>
+          <content>
+            <rng:optional>
+              <rng:ref name="system"/>
+            </rng:optional>
+          </content>
+        </elementSpec>
+        
+        <elementSpec ident="system" module="MEI.layout" mode="add">
+          <desc>A system element defines a physical system on a printed page.</desc>
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.facsimile"/>
+            <memberOf key="att.layout" />
+            <memberOf key="att.layout.system" />
+          </classes>
+        </elementSpec>
+        
+        <!-- duplicate sb for now -->
+        <elementSpec ident="sb" module="MEI.shared" mode="replace">
+          <desc>system break ― An empty formatting element that forces notation to begin on a new line. Do not confuse this element with the &lt;lb&gt; element,
+            which performs a similar function in prose.</desc>
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.facsimile"/>
+            <memberOf key="att.source"/>
+            <memberOf key="att.sb.log"/>
+            <memberOf key="att.sb.vis"/>
+            <memberOf key="att.sb.ges"/>
+            <memberOf key="att.sb.anl"/>
+            <memberOf key="att.layout.sb"/>
+            <memberOf key="model.milestoneLike.music"/>
+          </classes>
+          <content>
+            <rng:optional>
+              <rng:ref name="custos"/>
+            </rng:optional>
+          </content>
+        </elementSpec>
+        
+        <elementSpec ident="pb" module="MEI.shared" mode="replace">
+          <desc>page break ― The n attribute records the page number in the source. It need not be an integer, e.g. 'iv', or 'p17-3'. The logical page number can
+            be calculated by counting previous &lt;pb&gt; ancestor elements. When used in a score context, a page break implies an accompanying system break. This
+            element is modelled on an element in the Text Encoding Initiative (TEI).</desc>
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.facsimile"/>
+            <memberOf key="att.link.common"/>
+            <memberOf key="att.link.external"/>
+            <memberOf key="att.source"/>
+            <memberOf key="att.layout.pb" />
+            <memberOf key="model.pbLike"/>
+          </classes>
+          <content>
+            <rng:ref name="macro.metaLike.page"/>
+          </content>
+          <attList>
+            <attDef ident="func" usage="opt">
+              <desc>states the side of a leaf (as in a manuscript) on which the content following the &lt;pb&gt; element occurs.</desc>
+              <valList type="closed">
+                <valItem ident="verso"/>
+                <valItem ident="recto"/>
+              </valList>
+            </attDef>
+          </attList>
+        </elementSpec>
+      </schemaSpec>
+      
+    </body>
+  </text>
+</TEI>
