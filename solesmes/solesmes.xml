@@ -30,82 +30,16 @@
         <moduleRef key="MEI.shared"/>
         <moduleRef key="MEI.solesmes" />
 
-        <macroSpec ident="data.NEUMENAME" type="dt" module="MEI.solesmes" mode="add">
-          <desc>Neume names taken from the Liber Hymnarius, p. xii, except where the neume
-            form given in this table may be represented with a different representation, e.g.,
-            a "podatus initia debilis" may be represented as a podatus with an initial deminutae.
-          </desc>
-          <content>
-            <rng:choice>
-              <rng:value>punctum</rng:value>
-              <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-              <rng:value>virga</rng:value>
-              <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-              <rng:value>cavum</rng:value>
-              <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-              <rng:value>apostropha</rng:value>
-              <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-              <rng:value>oriscus</rng:value>
-              <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-              <rng:value>podatus</rng:value>
-              <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-              <rng:value>clivis</rng:value>
-              <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-              <rng:value>torculus</rng:value>
-              <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-              <rng:value>porrectus</rng:value>
-              <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-              <rng:value>scandicus</rng:value>
-              <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-              <rng:value>salicus</rng:value>
-              <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-            </rng:choice>
-          </content>
-        </macroSpec>
-        
-        <macroSpec ident="data.AUCTUS" type="dt" module="MEI.solesmes" mode="add">
-          <desc>Asc or desc, depending on the direction of the auctus.</desc>
-          <content>
-            <rng:choice>
-              <rng:value>asc</rng:value>
-              <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-              <rng:value>desc</rng:value>
-              <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"/>
-            </rng:choice>
-           </content>
-        </macroSpec>
-        
-        <macroSpec ident="data.DIVISION" type="dt" module="MEI.solesmes" mode="add">
-          <desc>Types of divisions. The "comma" is included since it is in the same family.</desc>
-          <content>
-            <rng:choice>
-              <rng:value>comma</rng:value>
-              <rng:value>major</rng:value>
-              <rng:value>minor</rng:value>
-              <rng:value>small</rng:value>
-              <rng:value>final</rng:value>
-            </rng:choice>
-          </content>
-        </macroSpec>
-        
-        <macroSpec ident="data.EPISEMA" type="dt" module="MEI.solesmes" mode="add">
-          <desc>Types of episema.</desc>
-          <content>
-            <rng:choice>
-              <rng:value>horizontal</rng:value>
-              <rng:value>vertical</rng:value>
-            </rng:choice>
-          </content>
-        </macroSpec>
         
         <classSpec ident="att.solesmes.episema" type="atts" mode="add">
           <desc>Episemae are stress indicators for notes.</desc>
           <attList>
             <attDef ident="form" usage="opt">
               <desc></desc>
-              <datatype>
-                <rng:ref name="data.EPISEMA"/>
-              </datatype>
+              <valList type="closed">
+                <valItem ident="horizontal" />
+                <valItem ident="vertical" />
+              </valList>
             </attDef>
           </attList>
         </classSpec>
@@ -114,10 +48,14 @@
           <desc>Divisions are breath and phrasing indicators.</desc>
           <attList>
             <attDef ident="form" usage="opt">
-              <desc></desc>
-              <datatype>
-                <rng:ref name="data.DIVISION"/>
-              </datatype>
+              <desc>Types of divisions. The "comma" is included since it is in the same family.</desc>
+              <valList type="closed">
+                <valItem ident="comma" />
+                <valItem ident="major" />
+                <valItem ident="minor" />
+                <valItem ident="small" />
+                <valItem ident="final" />
+              </valList>
             </attDef>
           </attList>
         </classSpec>
@@ -126,13 +64,29 @@
         <classSpec ident="att.solesmes.neumes" type="atts" mode="add">
           <attList>
             <attDef ident="name" usage="opt">
-              <desc>A pre-determined name for this neume.</desc>
-              <datatype>
-                <rng:ref name="data.NEUMENAME"/>
-              </datatype>
+              <desc>Neume names taken primarily from the Liber Hymnarius, p. xii, except where the neume
+                form given in this table may be represented with a different representation, e.g.,
+                a "podatus initia debilis" may be represented as a podatus with an initial deminutae.
+                
+                This also accepts freeform neume names. This is used for when a neume is known by a name, but
+                it may not appear on this list.
+              </desc>
+              <valList type="semi">
+                <valItem ident="punctum" />
+                <valItem ident="virga" />
+                <valItem ident="cavum" />
+                <valItem ident="apostropha" />
+                <valItem ident="oriscus" />
+                <valItem ident="podatus" />
+                <valItem ident="clivis" />
+                <valItem ident="torculus" />
+                <valItem ident="porrectus" />
+                <valItem ident="scandicus" />
+                <valItem ident="salicus" />
+              </valList>
             </attDef>
-            <attDef ident="altname" usage="opt">
-              <desc>An alternate name for this neume that may not be formalized within the given options for name.</desc>
+            <attDef ident="variant" usage="opt">
+              <desc>Used to capture a neume variant from the primary neume names. For example "punctum inclinatum"</desc>
             </attDef>
           </attList>
         </classSpec>
@@ -141,9 +95,10 @@
           <attList>
             <attDef ident="auc" usage="opt">
               <desc></desc>
-              <datatype>
-                <rng:ref name="data.AUCTUS"/>
-              </datatype>
+              <valList type="closed">
+                <valItem ident="asc" />
+                <valItem ident="desc" />
+              </valList>
             </attDef>
             <attDef ident="dem" usage="opt">
               <desc></desc>
@@ -155,17 +110,6 @@
               <desc></desc>
               <datatype>
                 <rng:ref name="data.BOOLEAN" />
-              </datatype>
-            </attDef>
-          </attList>
-        </classSpec>
-        
-        <classSpec ident="att.solesmes.divisions" type="atts" mode="add">
-          <attList>
-            <attDef ident="form" usage="opt">
-              <desc></desc>
-              <datatype>
-                <rng:ref name="data.DIVISIONS" />
               </datatype>
             </attDef>
           </attList>
