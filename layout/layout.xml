@@ -26,7 +26,6 @@
     </front>
     <body>
       <schemaSpec ident="mei" start="mei meihead meicorpus music" ns="http://www.music-encoding.org/ns/mei">
-        <!-- Workdesc can be added to @start when it becomes necessary to create separate work descriptions that can be referred to. -->
         <moduleRef key="mei"/>
         <moduleRef key="MEI.layout"/>
         <moduleRef key="MEI.shared"/>
