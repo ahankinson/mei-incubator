@@ -28,6 +28,7 @@
       <schemaSpec ident="mei" start="mei meihead meicorpus music" ns="http://www.music-encoding.org/ns/mei">
         <!-- Workdesc can be added to @start when it becomes necessary to create separate work descriptions that can be referred to. -->
         <moduleRef key="mei"/>
+        <moduleRef key="MEI.layout"/>
         <moduleRef key="MEI.shared"/>
         <moduleRef key="MEI.header"/>
         <moduleRef key="MEI.cmn"/>
@@ -50,7 +51,6 @@
         <moduleRef key="MEI.tablature"/>
         <moduleRef key="MEI.text"/>
         <moduleRef key="MEI.usersymbols"/>
-        <moduleRef key="MEI.layout"/>
         
         <macroSpec type="pe" ident="macro.musicPart" module="MEI.shared" mode="replace">
           <desc>groups elements that may appear as part of a music element.</desc>
@@ -84,16 +84,19 @@
         <classSpec ident="att.layout.system" module="MEI.layout" type="atts" mode="add">
           <desc>Attributes that are only on the system element.</desc>
         </classSpec>
-        
-        <classSpec ident="att.layout.sb" module="MEI.layout" type="atts" mode="add">
-          <desc>Attributes that are on the sb element</desc>
-          <classes>
-            <!-- add the layout.sb attributes. -->
-            <memberOf key="att.sb.vis" />
-          </classes>
+             
+        <classSpec type="atts" module="MEI.shared" ident="att.pb.vis" mode="replace">
+          <desc>Visual domain attributes</desc>
           <attList>
-            <attDef ident="systemref" usage="opt">
-              <desc>Points to a system element ID in the layout section.</desc>
+            <attDef ident="func" usage="opt">
+              <desc>states the side of a leaf (as in a manuscript) on which the content following the &lt;pb&gt; element occurs.</desc>
+              <valList type="closed">
+                <valItem ident="verso"/>
+                <valItem ident="recto"/>
+              </valList>
+            </attDef>
+            <attDef ident="pageref" usage="opt">
+              <desc>Points to a page element ID in the layout section.</desc>
               <datatype>
                 <rng:data type="ID"/>
               </datatype>
@@ -101,12 +104,36 @@
           </attList>
         </classSpec>
         
-        <classSpec ident="att.layout.pb" module="MEI.layout" type="atts" mode="add">
-          <desc>Attributes that are on the pb element</desc>
-          <classes>
-            <memberOf key="att.pb.vis" />
-          </classes>
+        <classSpec type="atts" module="MEI.shared" ident="att.sb.vis" mode="replace">
+          <desc>Visual domain attributes</desc>
           <attList>
+            <attDef ident="rend" usage="opt">
+              <desc>indicates whether hash marks should be rendered between systems. See Read, p. 436, ex. 26-3.</desc>
+              <valList type="closed">
+                <valItem ident="hash">
+                  <desc>display hash marks between systems</desc>
+                </valItem>
+              </valList>
+            </attDef>
+            <attDef ident="systemref" usage="opt">
+              <desc>Points to a page element ID in the layout section.</desc>
+              <datatype>
+                <rng:data type="ID"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </classSpec>
+        
+        <classSpec type="atts" module="MEI.shared" ident="att.pb.vis" mode="replace">
+          <desc>Visual domain attributes</desc>
+          <attList>
+            <attDef ident="func" usage="opt">
+              <desc>states the side of a leaf (as in a manuscript) on which the content following the &lt;pb&gt; element occurs.</desc>
+              <valList type="closed">
+                <valItem ident="verso"/>
+                <valItem ident="recto"/>
+              </valList>
+            </attDef>
             <attDef ident="pageref" usage="opt">
               <desc>Points to a page element ID in the layout section.</desc>
               <datatype>
