@@ -28,7 +28,6 @@
       <schemaSpec ident="mei" start="mei meihead meicorpus music" ns="http://www.music-encoding.org/ns/mei">
         <!-- Workdesc can be added to @start when it becomes necessary to create separate work descriptions that can be referred to. -->
         <moduleRef key="mei"/>
-        <moduleRef key="MEI.layout"/>
         <moduleRef key="MEI.shared"/>
         <moduleRef key="MEI.header"/>
         <moduleRef key="MEI.cmn"/>
@@ -51,6 +50,7 @@
         <moduleRef key="MEI.tablature"/>
         <moduleRef key="MEI.text"/>
         <moduleRef key="MEI.usersymbols"/>
+        <moduleRef key="MEI.layout"/>
         
         <macroSpec type="pe" ident="macro.musicPart" module="MEI.shared" mode="replace">
           <desc>groups elements that may appear as part of a music element.</desc>
@@ -87,6 +87,10 @@
         
         <classSpec ident="att.layout.sb" module="MEI.layout" type="atts" mode="add">
           <desc>Attributes that are on the sb element</desc>
+          <classes>
+            <!-- add the layout.sb attributes. -->
+            <memberOf key="att.sb.vis" />
+          </classes>
           <attList>
             <attDef ident="systemref" usage="opt">
               <desc>Points to a system element ID in the layout section.</desc>
@@ -99,6 +103,9 @@
         
         <classSpec ident="att.layout.pb" module="MEI.layout" type="atts" mode="add">
           <desc>Attributes that are on the pb element</desc>
+          <classes>
+            <memberOf key="att.pb.vis" />
+          </classes>
           <attList>
             <attDef ident="pageref" usage="opt">
               <desc>Points to a page element ID in the layout section.</desc>
@@ -148,56 +155,7 @@
             <memberOf key="att.layout.system" />
           </classes>
         </elementSpec>
-        
-        <!-- duplicate sb for now -->
-        <elementSpec ident="sb" module="MEI.shared" mode="replace">
-          <desc>system break ― An empty formatting element that forces notation to begin on a new line. Do not confuse this element with the &lt;lb&gt; element,
-            which performs a similar function in prose.</desc>
-          <classes>
-            <memberOf key="att.common"/>
-            <memberOf key="att.facsimile"/>
-            <memberOf key="att.source"/>
-            <memberOf key="att.sb.log"/>
-            <memberOf key="att.sb.vis"/>
-            <memberOf key="att.sb.ges"/>
-            <memberOf key="att.sb.anl"/>
-            <memberOf key="att.layout.sb"/>
-            <memberOf key="model.milestoneLike.music"/>
-          </classes>
-          <content>
-            <rng:optional>
-              <rng:ref name="custos"/>
-            </rng:optional>
-          </content>
-        </elementSpec>
-        
-        <elementSpec ident="pb" module="MEI.shared" mode="replace">
-          <desc>page break ― The n attribute records the page number in the source. It need not be an integer, e.g. 'iv', or 'p17-3'. The logical page number can
-            be calculated by counting previous &lt;pb&gt; ancestor elements. When used in a score context, a page break implies an accompanying system break. This
-            element is modelled on an element in the Text Encoding Initiative (TEI).</desc>
-          <classes>
-            <memberOf key="att.common"/>
-            <memberOf key="att.facsimile"/>
-            <memberOf key="att.link.common"/>
-            <memberOf key="att.link.external"/>
-            <memberOf key="att.source"/>
-            <memberOf key="att.layout.pb" />
-            <memberOf key="model.pbLike"/>
-          </classes>
-          <content>
-            <rng:ref name="macro.metaLike.page"/>
-          </content>
-          <attList>
-            <attDef ident="func" usage="opt">
-              <desc>states the side of a leaf (as in a manuscript) on which the content following the &lt;pb&gt; element occurs.</desc>
-              <valList type="closed">
-                <valItem ident="verso"/>
-                <valItem ident="recto"/>
-              </valList>
-            </attDef>
-          </attList>
-        </elementSpec>
-      </schemaSpec>
+       </schemaSpec>
       
     </body>
   </text>
