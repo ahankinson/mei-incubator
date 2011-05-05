@@ -111,23 +111,29 @@
           </attList>
         </classSpec>
         
-        <classSpec ident="att.solesmes.notes" type="atts" mode="add">
+        <classSpec ident="att.solesmes.nc" type="atts" mode="add">
           <attList>
-            <attDef ident="auc" usage="opt">
-              <desc></desc>
+            <attDef ident="auctus" usage="opt">
+              <desc>The form of an "auctus".</desc>
               <valList type="closed">
                 <valItem ident="asc" />
                 <valItem ident="desc" />
               </valList>
             </attDef>
-            <attDef ident="dem" usage="opt">
-              <desc></desc>
+            <attDef ident="deminutus" usage="opt">
+              <desc>Is the note a deminutus</desc>
               <datatype>
                 <rng:ref name="data.BOOLEAN" />
               </datatype>
             </attDef>
-            <attDef ident="quil" usage="opt">
-              <desc></desc>
+            <attDef ident="quilisma" usage="opt">
+              <desc>Is the note a quilisma</desc>
+              <datatype>
+                <rng:ref name="data.BOOLEAN" />
+              </datatype>
+            </attDef>
+            <attDef ident="inclinatum" usage="opt">
+              <desc>Is the note an inclinatum</desc>
               <datatype>
                 <rng:ref name="data.BOOLEAN" />
               </datatype>
@@ -166,73 +172,26 @@
           <classes>
             <memberOf key="att.common"/>
             <memberOf key="att.facsimile"/>
-            
             <memberOf key="att.solesmes.neumes" />
           </classes>
-        </elementSpec>
-        
-        <!-- duplicating note for now -->
-        <elementSpec ident="note" module="MEI.shared" mode="replace">
-          <desc>note ― A single pitched event. (Read, p. 63) The note element is allowed to contain other events for situations where a single (usually
-            ornamented) written note is representative of a group of performed notes. The accid and artic sub-elements may be used instead of the note element's
-            attributes when accid and artic represent first-class objects, e.g., when they require attributes, such as x and y location attributes. Similarly, the
-            syl sub-element may be used instead of the syl attribute. The verse sub-element may be used to group text syllables by verse. The colored attribute
-            may be used to indicate coloration. In the mensural repertoire, coloration is a temporary change in the underlying mensuration from perfect to
-            imperfect. In the CMN repertoire, coloration is an inversion of the note head's normal rendition, that is, the notehead is void when it would
-            otherwise be filled and vice versa. Do not confuse this with visual color.</desc>
-          <classes>
-            <memberOf key="att.common"/>
-            <memberOf key="att.facsimile"/>
-            <memberOf key="att.note.log"/>
-            <memberOf key="att.note.vis"/>
-            <memberOf key="att.note.ges"/>
-            <memberOf key="att.note.anl"/>
-            <memberOf key="model.eventLike"/>
-            
-            <memberOf key="att.solesmes.notes" />
-          </classes>
           <content>
-            <rng:zeroOrMore>
-              <rng:choice>
-                <rng:ref name="model.eventLike"/>
-                <rng:ref name="model.noteModifierLike"/>
-                <rng:ref name="model.verseLike"/>
-                <rng:ref name="model.sylLike"/>
-                <rng:ref name="model.appLike"/>
-                <rng:ref name="model.editLike"/>
-                <rng:ref name="model.transcriptionLike"/>
-              </rng:choice>
-            </rng:zeroOrMore>
+            <rng:optional>
+              <rng:ref name="nc"/>
+            </rng:optional>
           </content>
-          <constraintSpec ident="Check_instr" scheme="isoschematron">
-            <constraint>
-              <sch:rule context="mei:note[@instr]">
-                <sch:assert test="every $i in tokenize(@instr, '\s+') satisfies
-                  $i=preceding::mei:instrdef[@xml:id]/@xml:id"/>
-              </sch:rule>
-            </constraint>
-          </constraintSpec>
         </elementSpec>
         
-        <!-- duplicating ligature for now -->
-        <elementSpec ident="ligature" module="MEI.shared" mode="replace">
-          <desc>ligature ― A notation symbol that combines two or more notes into a single sign. The rhythmic meaning of the components of a ligature is
-            typically contextual, not absolute; therefore, an interpretative duration may be encoded on each of the components using either the dur.ges attribute
-            or the num and numbase attribute pair. The &lt;ligature&gt; element should *not* be used for brackets in modern notation that indicate notes that were
-            part of a ligature in the original source.</desc>
+        <elementSpec ident="nc" module="MEI.solesmes" mode="add">
+          <desc>Supplies a "neume component" to neume that allows the description of individual neume parts, e.g., a quilisma.</desc>
           <classes>
-            <memberOf key="att.common"/>
-            <memberOf key="att.facsimile"/>
-            <memberOf key="att.ligature.log"/>
-            <memberOf key="att.ligature.vis"/>
-            <memberOf key="att.ligature.ges"/>
-            <memberOf key="att.ligature.anl"/>
-            <memberOf key="model.eventLike.mensural"/>
+            <memberOf key="att.common" />
+            <memberOf key="att.solesmes.nc" />
           </classes>
           <content>
-            <rng:zeroOrMore>
-              <rng:ref name="model.layerPart"/>
-            </rng:zeroOrMore>
+            <rng:optional>
+              <rng:ref name="note"/>
+              <rng:ref name="neume" />
+            </rng:optional>
           </content>
         </elementSpec>
       </schemaSpec>
