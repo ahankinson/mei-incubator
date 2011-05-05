@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?oxygen RNGSchema="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="xml"?>
+<TEI xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Music Encoding Initiative Guidelines</title>
+        <respStmt>
+          <resp>Authored by</resp>
+          <name xml:id="AN">Author Name</name>
+        </respStmt>
+      </titleStmt>
+      <publicationStmt>
+        <p/>
+      </publicationStmt>
+      <sourceDesc>
+        <p/>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <front>
+      <divGen type="toc"/>
+    </front>
+    <body>
+      <schemaSpec ident="mei" start="mei meihead meicorpus music" ns="http://www.music-encoding.org/ns/mei">
+        
+        <!-- The MEI modules in MEI 2011 -->
+        <moduleRef key="mei"/>
+        <moduleRef key="MEI.shared"/>
+        <moduleRef key="MEI.header"/>
+        <moduleRef key="MEI.cmn"/>
+        <moduleRef key="MEI.mensural"/>
+        <moduleRef key="MEI.neumes"/>
+        <moduleRef key="MEI.analysis"/>
+        <moduleRef key="MEI.cmnOrnaments"/>
+        <moduleRef key="MEI.corpus"/>
+        <moduleRef key="MEI.critapp"/>
+        <moduleRef key="MEI.edittrans"/>
+        <moduleRef key="MEI.facsimile"/>
+        <moduleRef key="MEI.figtable"/>
+        <moduleRef key="MEI.harmony"/>
+        <moduleRef key="MEI.linkalign"/>
+        <moduleRef key="MEI.lyrics"/>
+        <moduleRef key="MEI.midi"/>
+        <moduleRef key="MEI.namesdates"/>
+        <moduleRef key="MEI.performance"/>
+        <moduleRef key="MEI.ptrref"/>
+        <moduleRef key="MEI.tablature"/>
+        <moduleRef key="MEI.text"/>
+        <moduleRef key="MEI.usersymbols"/>
+        
+        <!-- Change this to your module name. -->
+        <moduleRef key="MEI.oddtemplate" />
+        
+        <!-- classSpecs allow you to group things together into classes, and then make
+            other things reference these classes in order to inherit some functionality.
+            
+            MEI uses them primarily to group common attributes together that may be used on 
+            one or more elements.
+         -->
+        <classSpec ident="att.oddtemplate.collection1" module="MEI.oddtemplate" type="atts" mode="add">
+          <desc>A collection of attributes.</desc>
+          <attList>
+            <attDef ident="attr1" usage="opt">
+              <desc></desc>
+              <valList type="closed">
+                <valItem ident="eenie" />
+                <valItem ident="meenie" />
+              </valList>
+            </attDef>
+          </attList>
+        </classSpec>
+
+        <classSpec ident="att.oddtemplate.collection2" module="MEI.oddtemplate" type="atts" mode="add">
+          <desc></desc>
+          <attList>
+            <attDef ident="attr2" usage="opt">
+              <desc></desc>
+              <!-- semi-closed lists will suggest the given values, but also validate any other supplied values. -->
+              <valList type="semi">
+                <valItem ident="miney" />
+                <valItem ident="moe" />
+              </valList>
+            </attDef>
+            <attDef ident="attr3" usage="opt">
+                <desc></desc>
+                <datatype>
+                    <rng:ref name="data.BOOLEAN" />
+                </datatype>
+            </attDef>
+          </attList>
+        </classSpec>
+        
+        <!-- elementSpec elements define new elements that will be included in the schema. -->
+        <elementSpec ident="addelement" module="MEI.oddtemplate" mode="add">
+          <desc></desc>
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.oddtemplate.collection1"/>
+          </classes>
+        </elementSpec>
+        
+        <elementSpec ident="newelement" module="MEI.oddtemplate" mode="add">
+          <desc></desc>
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.oddtemplate.collection2" />
+          </classes>
+          <content>
+            <rng:optional>
+                <rng:ref name="addelement" />
+            </rng:optional>
+          </content>
+        </elementSpec>
+        
+        <!-- You can even delete core MEI elements in your new schema.
+            Don't really delete note, though. That might be bad. -->
+        <elementSpec ident="note" module="MEI.shared" mode="delete" />
+        
+      </schemaSpec>
+      
+    </body>
+  </text>
+</TEI>
