@@ -26,12 +26,12 @@
     <body>
       <schemaSpec ident="mei" start="mei meihead meicorpus music" ns="http://www.music-encoding.org/ns/mei">
         <moduleRef key="mei"/>
-        <moduleRef key="MEI.layout"/>
+        <!--<moduleRef key="MEI.layout"/>-->
         <moduleRef key="MEI.shared"/>
         <moduleRef key="MEI.header"/>
         <moduleRef key="MEI.cmn"/>
         <moduleRef key="MEI.mensural"/>
-        <moduleRef key="MEI.neumes"/>
+        <!--<moduleRef key="MEI.neumes"/>-->
         <moduleRef key="MEI.analysis"/>
         <moduleRef key="MEI.cmnOrnaments"/>
         <moduleRef key="MEI.corpus"/>
@@ -79,9 +79,8 @@
             </attDef>
           </attList>
         </classSpec>
-        
-
-        <classSpec ident="att.solesmes.neumes" type="atts" mode="add">
+  
+        <classSpec ident="att.solesmes.neume" type="atts" mode="add">
           <attList>
             <attDef ident="name" usage="opt">
               <desc>Neume names taken primarily from the Liber Hymnarius, p. xii, except where the neume
@@ -146,6 +145,8 @@
             <memberOf key="att.common"/>
             <memberOf key="att.facsimile"/>
             <memberOf key="att.solesmes.episema" />
+            <memberOf key="att.startendid" />
+            <memberOf key="model.eventLike" />
           </classes>
         </elementSpec>
         
@@ -154,6 +155,7 @@
             <memberOf key="att.common"/>
             <memberOf key="att.facsimile"/>
             <memberOf key="att.solesmes.division" />
+            <memberOf key="model.eventLike" />
           </classes>
         </elementSpec>
         
@@ -172,12 +174,20 @@
           <classes>
             <memberOf key="att.common"/>
             <memberOf key="att.facsimile"/>
-            <memberOf key="att.solesmes.neumes" />
+            <memberOf key="att.typed" />
+            <memberOf key="att.solesmes.neume.log" />
+            <memberOf key="att.solesmes.neume.vis" />
+            <memberOf key="att.solesmes.neume.ges" />
+            <memberOf key="att.solesmes.neume.anl" />
+            <memberOf key="att.solesmes.neume" />
+            <memberOf key="model.eventLike" />
           </classes>
           <content>
-            <rng:optional>
-              <rng:ref name="nc"/>
-            </rng:optional>
+            <rng:zeroOrMore>
+              <rng:optional>
+                <rng:ref name="nc"/>
+              </rng:optional>
+            </rng:zeroOrMore>
           </content>
         </elementSpec>
         
@@ -186,16 +196,23 @@
           <classes>
             <memberOf key="att.common" />
             <memberOf key="att.solesmes.nc" />
+            <memberOf key="model.eventLike" />
           </classes>
           <content>
-            <rng:optional>
-              <rng:ref name="note"/>
-              <rng:ref name="neume" />
-            </rng:optional>
+            <rng:zeroOrMore>
+              <rng:optional>
+                <rng:ref name="neume" />
+              </rng:optional>
+            </rng:zeroOrMore>
+            <rng:zeroOrMore>
+              <rng:choice>
+                <rng:ref name="note"/>
+              </rng:choice>
+            </rng:zeroOrMore>
           </content>
         </elementSpec>
+        
       </schemaSpec>
-      
     </body>
   </text>
 </TEI>
