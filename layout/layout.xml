@@ -97,14 +97,14 @@
             <attDef ident="pageref" usage="opt">
               <desc>Points to a page element ID in the layout section.</desc>
               <datatype>
-                <rng:data type="ID"/>
+                <rng:data type="IDREFS"/>
               </datatype>
             </attDef>
           </attList>
         </classSpec>
         
         <classSpec type="atts" module="MEI.shared" ident="att.sb.vis" mode="delete" />
-        <classSpec type="atts" module="MEI.shared" ident="att.sb.vis" mode="replace">
+        <classSpec type="atts" module="MEI.shared" ident="att.sb.vis" mode="add">
           <desc>Visual domain attributes</desc>
           <attList>
             <attDef ident="rend" usage="opt">
@@ -118,14 +118,14 @@
             <attDef ident="systemref" usage="opt">
               <desc>Points to a page element ID in the layout section.</desc>
               <datatype>
-                <rng:data type="ID"/>
+                <rng:data type="IDREFS"/>
               </datatype>
             </attDef>
           </attList>
         </classSpec>
         
         <classSpec type="atts" module="MEI.shared" ident="att.pb.vis" mode="delete" />
-        <classSpec type="atts" module="MEI.shared" ident="att.pb.vis" mode="replace">
+        <classSpec type="atts" module="MEI.shared" ident="att.pb.vis" mode="add">
           <desc>Visual domain attributes</desc>
           <attList>
             <attDef ident="func" usage="opt">
@@ -138,41 +138,11 @@
             <attDef ident="pageref" usage="opt">
               <desc>Points to a page element ID in the layout section.</desc>
               <datatype>
-                <rng:data type="ID"/>
+                <rng:data type="IDREFS"/>
               </datatype>
             </attDef>
           </attList>
         </classSpec>
-        
-        <elementSpec ident="layout" module="MEI.layout" mode="add">
-          <desc>A layout element contains elements describing the physical layout of a page
-          of music.</desc>
-          <classes>
-            <memberOf key="att.common"/>
-            <memberOf key="att.layout" />
-          </classes>
-          <content>
-            <rng:optional>
-              <rng:ref name="page"/>
-            </rng:optional>
-          </content>
-        </elementSpec>
-        
-        <elementSpec ident="page" module="MEI.layout" mode="add">
-          <desc>A page element defines a physical page. Use the regular @facs pattern to 
-          describe page dimensions.</desc>
-          <classes>
-            <memberOf key="att.common"/>
-            <memberOf key="att.facsimile"/>
-            <memberOf key="att.layout" />
-            <memberOf key="att.layout.page" />
-          </classes>
-          <content>
-            <rng:optional>
-              <rng:ref name="system"/>
-            </rng:optional>
-          </content>
-        </elementSpec>
         
         <elementSpec ident="system" module="MEI.layout" mode="add">
           <desc>A system element defines a physical system on a printed page.</desc>
@@ -183,6 +153,41 @@
             <memberOf key="att.layout.system" />
           </classes>
         </elementSpec>
+      
+        <elementSpec ident="page" module="MEI.layout" mode="add">
+          <desc>A page element defines a physical page. Use the regular @facs pattern to 
+          describe page dimensions.</desc>
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.facsimile"/>
+            <memberOf key="att.layout" />
+            <memberOf key="att.layout.page" />
+          </classes>
+          <content>
+            <rng:zeroOrMore>
+              <rng:choice>
+                <rng:ref name="system"/>
+              </rng:choice>
+            </rng:zeroOrMore>
+          </content>
+        </elementSpec>
+        
+        <elementSpec ident="layout" module="MEI.layout" mode="add">
+          <desc>A layout element contains elements describing the physical layout of a page
+            of music.</desc>
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.layout" />
+          </classes>
+          <content>
+            <rng:zeroOrMore>
+              <rng:choice>
+                <rng:ref name="page"/>
+              </rng:choice>
+            </rng:zeroOrMore>
+          </content>
+        </elementSpec>
+        
        </schemaSpec>
       
     </body>
