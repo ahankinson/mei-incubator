@@ -32,7 +32,7 @@
         <moduleRef key="MEI.header"/>
         <moduleRef key="MEI.cmn"/>
         <moduleRef key="MEI.mensural"/>
-        <moduleRef key="MEI.neumes"/>
+        <!--<moduleRef key="MEI.neumes"/>-->
         <moduleRef key="MEI.analysis"/>
         <moduleRef key="MEI.cmnOrnaments"/>
         <moduleRef key="MEI.corpus"/>
@@ -103,6 +103,7 @@
           </attList>
         </classSpec>
         
+        <classSpec type="atts" module="MEI.shared" ident="att.sb.vis" mode="delete" />
         <classSpec type="atts" module="MEI.shared" ident="att.sb.vis" mode="replace">
           <desc>Visual domain attributes</desc>
           <attList>
@@ -123,6 +124,7 @@
           </attList>
         </classSpec>
         
+        <classSpec type="atts" module="MEI.shared" ident="att.pb.vis" mode="delete" />
         <classSpec type="atts" module="MEI.shared" ident="att.pb.vis" mode="replace">
           <desc>Visual domain attributes</desc>
           <attList>
