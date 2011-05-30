@@ -53,6 +53,7 @@
                 
                 <xi:include href="solesmes/solesmes.xml" parse="xml" xpointer="xmlns(tei=http://www.tei-c.org/ns/1.0) xpointer(//tei:classSpec)" />
                 <xi:include href="solesmes/solesmes.xml" parse="xml" xpointer="xmlns(tei=http://www.tei-c.org/ns/1.0) xpointer(//tei:elementSpec)" />
+                <xi:include href="layout/layout.xml" parse="xml" xpointer="xmlns(tei=http://www.tei-c.org/ns/1.0) xpointer(//tei:macroSpec)" />
                 <xi:include href="layout/layout.xml" parse="xml" xpointer="xmlns(tei=http://www.tei-c.org/ns/1.0) xpointer(//tei:classSpec)" />
                 <xi:include href="layout/layout.xml" parse="xml" xpointer="xmlns(tei=http://www.tei-c.org/ns/1.0) xpointer(//tei:elementSpec)" />
                 
