@@ -105,7 +105,7 @@
               </valList>
             </attDef>
             <attDef ident="variant" usage="opt">
-              <desc>Used to capture a neume variant from the primary neume names. For example "punctum inclinatum"</desc>
+              <desc>Used to capture a neume variant name from the primary neume names.</desc>
             </attDef>
           </attList>
         </classSpec>
@@ -120,19 +120,19 @@
               </valList>
             </attDef>
             <attDef ident="deminutus" usage="opt">
-              <desc>Is the note a deminutus</desc>
+              <desc>This neume component describes a deminutus note.</desc>
               <datatype>
                 <rng:ref name="data.BOOLEAN" />
               </datatype>
             </attDef>
             <attDef ident="quilisma" usage="opt">
-              <desc>Is the note a quilisma</desc>
+              <desc>This neume component describes a quilisma note.</desc>
               <datatype>
                 <rng:ref name="data.BOOLEAN" />
               </datatype>
             </attDef>
             <attDef ident="inclinatum" usage="opt">
-              <desc>Is the note an inclinatum</desc>
+              <desc>This neume component describes a punctum inclinatum</desc>
               <datatype>
                 <rng:ref name="data.BOOLEAN" />
               </datatype>
@@ -184,9 +184,9 @@
           </classes>
           <content>
             <rng:zeroOrMore>
-              <rng:optional>
+              <rng:choice>
                 <rng:ref name="nc"/>
-              </rng:optional>
+              </rng:choice>
             </rng:zeroOrMore>
           </content>
         </elementSpec>
@@ -200,9 +200,9 @@
           </classes>
           <content>
             <rng:zeroOrMore>
-              <rng:optional>
+              <rng:choice>
                 <rng:ref name="neume" />
-              </rng:optional>
+              </rng:choice>
             </rng:zeroOrMore>
             <rng:zeroOrMore>
               <rng:choice>
